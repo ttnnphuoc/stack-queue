@@ -60,5 +60,34 @@ namespace StackAndQueueExample
                 Console.WriteLine($"Xử lý {hs}, còn lại {hoso_canxuly.Count}");
             }
         }
+
+        /// <summary>
+        /// for qua thêm các ký tự đầu vào stack, sau đó kiểm tra nó ký tự thứ 2 là ký tự đóng
+        /// và stack != rỗng và dùng Peek để láy ra ký tự đầu trong stack == ký tự mở thì remove đi ký tự đó => hợp lệ
+        /// ngược lại không thỏa dk thì sẽ ko phải là cặp đấu open/close
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool isValidString(string str)
+        {
+            Stack<char> leftSymbols = new Stack<char>();
+            foreach (char c in str.ToCharArray())
+            {
+                if (c == '(' || c == '{' || c == '[')
+                {
+                    leftSymbols.Push(c);
+                } else if (c == ')' && leftSymbols.Any() && leftSymbols.Peek() == '(')
+                {
+                    leftSymbols.Pop();
+                } else if (c == '}' && leftSymbols.Any() && leftSymbols.Peek() == '{')
+                {
+                    leftSymbols.Pop();
+                } else if (c == ']' && leftSymbols.Any() && leftSymbols.Peek() == '[')
+                {
+                    leftSymbols.Pop();
+                }
+            }
+            return !leftSymbols.Any();
+        }
     }
 }
