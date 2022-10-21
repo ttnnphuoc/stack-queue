@@ -89,5 +89,89 @@ namespace StackAndQueueExample
             }
             return !leftSymbols.Any();
         }
+
+        /// <summary>
+        ///  the principle of functioning of the linked list structures is that each node in the list has a reference to the next node, 
+        ///  except the tail of the list, which has no reference to the next node.
+        /// </summary>
+        /// <returns></returns>
+        public static bool LinkedList()
+        {
+            string[] words = { "the", "fox", "jumps", "over", "the", "dog" };
+            LinkedList<string> sentence = new LinkedList<string>(words);
+            Display(sentence, "The linked list values: ");
+            Console.WriteLine("sentence.contain(\"jumps\") = {0}", sentence.Contains("jumps"));
+
+            // Add the work 'today' to the beginning of the linked list
+            sentence.AddFirst("today");
+            Display(sentence, "Test 1: Add 'today' to beginning of the list");
+
+            // Move the first node to be the last node
+            LinkedListNode<string> mark1 = sentence.First;
+            sentence.RemoveFirst();
+            sentence.AddLast(mark1);
+            Display(sentence, "Test 2: Move fist node to be last node");
+
+            // Change the last node to 'yesterday'
+            sentence.RemoveLast();
+            sentence.AddLast("yesterday");
+            Display(sentence, "Test 3: Change the last note to yesterday");
+
+            // Move the last node to be the first node.
+            mark1 = sentence.Last;
+            sentence.RemoveLast();
+            sentence.AddFirst(mark1);
+            Display(sentence, "Test 4: Move last node to be first node:");
+
+            // Indicate the last occurence of 'the'.
+            sentence.RemoveFirst();
+            LinkedListNode<string> current = sentence.FindLast("the");
+            IndicateNode(current, "Test 5: Indicate last occurence of 'the':");
+
+            return true;
+        }
+
+        private static void Display(LinkedList<string> words, string test)
+        {
+            Console.WriteLine(test);
+            foreach (string word in words)
+            {
+                Console.Write(word + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        private static void IndicateNode(LinkedListNode<string> node, string test)
+        {
+            Console.WriteLine(test);
+            if (node.List == null)
+            {
+                Console.WriteLine("Node '{0}' is not in the list.\n",
+                    node.Value);
+                return;
+            }
+
+            StringBuilder result = new StringBuilder("(" + node.Value + ")");
+            LinkedListNode<string> nodeP = node.Previous;
+
+            while (nodeP != null)
+            {
+                result.Insert(0, nodeP.Value + " ");
+                nodeP = nodeP.Previous;
+            }
+
+            node = node.Next;
+            while (node != null)
+            {
+                result.Append(" " + node.Value);
+                node = node.Next;
+            }
+
+            Console.WriteLine(result);
+            Console.WriteLine();
+        }
+
     }
+
 }
