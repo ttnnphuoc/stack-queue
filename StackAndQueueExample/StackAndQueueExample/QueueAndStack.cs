@@ -128,6 +128,10 @@ namespace StackAndQueueExample
             LinkedListNode<string> current = sentence.FindLast("the");
             IndicateNode(current, "Test 5: Indicate last occurence of 'the':");
 
+            // Add 'lazy' and 'old' after 'the' (the LinkedListNode named current).
+            sentence.AddAfter(current, "old");
+            sentence.AddAfter(current, "lazy");
+            IndicateNode(current, "Test 6: Add 'lazy' and 'old' after 'the':");
             return true;
         }
 
